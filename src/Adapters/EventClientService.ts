@@ -4,7 +4,7 @@ export class EventServiceClient {
   private baseUrl: string;
 
   constructor() {
-    this.baseUrl = 'http://18.209.250.86:1234'; // URL del servicio de eventos
+    this.baseUrl = 'http://104.248.49.221:1234'; // URL del servicio de eventos
   }
 
   async getAllEvents(token:string): Promise<[]|any> {
