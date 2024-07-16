@@ -30,7 +30,7 @@ export class EventAggregatorService {
       const event = await this.eventServiceClient.getbyId(id, token);
   
       if (!event) {
-        return null;
+        return event;
       }
 
       const association = await this.userServiceClient.getAssociation(event.association_id, token);
