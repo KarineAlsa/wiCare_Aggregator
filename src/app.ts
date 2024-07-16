@@ -6,9 +6,6 @@ import proxy from 'express-http-proxy';
 const app = express();
 const PORT = 9000;
 
-app.get('/event',VerifyToken,getAllEvents);
-app.get('/event/:id',VerifyToken,getByIdEvent);
-
 app.use('/event', proxy('http://104.248.49.221:1234'));
 app.use('/user',proxy('http://146.190.64.233:3000'))
 

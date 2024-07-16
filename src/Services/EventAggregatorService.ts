@@ -14,7 +14,7 @@ export class EventAggregatorService {
     
     const events = await this.eventServiceClient.getAllEvents(token);
     
-    const enrichedEvents = await Promise.all(events.map(async (event:any) => {
+    const enrichedEvents = await Promise.all(events.data.map(async (event:any) => {
       const association = await this.userServiceClient.getAssociation(event.association_id, token);
       
       return {
@@ -28,21 +28,21 @@ export class EventAggregatorService {
   async getByIdEvent(id: any, token: any): Promise<any | null> {
     try {
       const event = await this.eventServiceClient.getbyId(id, token);
-  
-      if (!event) {
-        return event;
+      console.log(event);
+      if (!event.data) {
+       
+        return event
       }
 
-      const association = await this.userServiceClient.getAssociation(event.association_id, token);
-      
+      const association = await this.userServiceClient.getAssociation(event.data.association_id, token);
+      event.data.association = association;
       const enrichedEvent = {
-        ...event,
-        association,
+        event
       };
   
       return enrichedEvent;
     } catch (error) {
-      console.error('Error al obtener el evento enriquecido:', error);
+      //console.error('Error al obtener el evento enriquecido:', error);
       return null;
     }
   }

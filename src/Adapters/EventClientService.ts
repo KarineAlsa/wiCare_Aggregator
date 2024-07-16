@@ -18,19 +18,26 @@ export class EventServiceClient {
     console.log('all');
     const response = await axios.get(`${this.baseUrl}`, config);
     console.log(response.data.data);
-    return response.data.data;
+    return response.data;
   
   }
   async getbyId(id:string, token:string): Promise<any> {
-    const config: AxiosRequestConfig = {
-      headers: {
-        Authorization: `${token}`,
-        'Content-Type': 'application/json'
-      }
-  }
-  console.log('uno');
-    const response = await axios.get(`${this.baseUrl}/${id}`,config);
-    console.log(response.data.data);
-    return response.data.data;
-  }
+
+    try {
+      const config: AxiosRequestConfig = {
+        headers: {
+          Authorization: `${token}`,
+          'Content-Type': 'application/json'
+        }
+    }
+    
+      const response = await axios.get(`${this.baseUrl}/${id}`,config);
+      console.log(response.data);
+      return response.data;
+    
+    } catch (error:any) {
+      console.error('Error fetching events:', error);
+    }
+    
+}
 }
