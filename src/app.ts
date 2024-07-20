@@ -11,6 +11,7 @@ const PORT = process.env.PORT;
 const eventServiceUrl = process.env.EVENT_SERVICE_URL;
 const userServiceUrl = process.env.USER_SERVICE_URL;
 const donationServiceUrl = process.env.DONATION_SERVICE_URL;
+const analyzerServiceUrl = process.env.ANALYZER_SERVICE_URL;
 
 if (eventServiceUrl) {
   app.use('/event', proxy(eventServiceUrl));
@@ -28,6 +29,12 @@ if (donationServiceUrl) {
   app.use('/donation', proxy(donationServiceUrl));
 } else {
   console.error('DONATION_SERVICE_URL is not defined');
+}
+
+if (analyzerServiceUrl) {
+  app.use('/analyzer', proxy(analyzerServiceUrl));
+} else {
+  console.error('ANALYZER_SERVICE_URL is not defined');
 }
 
 app.listen(PORT, () => {
