@@ -40,9 +40,6 @@ if (analyzerServiceUrl) {
   console.error('ANALYZER_SERVICE_URL is not defined');
 }
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
 
 const httpsOptions = {
   key: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/wicare-gateway.ddns.net/privkey.pem')),
