@@ -4,6 +4,9 @@ import { getByIdEvent } from './Controllers/EventByIdController';
 import {VerifyToken} from './Middleware/Verify';
 import proxy from 'express-http-proxy';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
+import https from 'https';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
@@ -39,4 +42,13 @@ if (analyzerServiceUrl) {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+const httpsOptions = {
+  key: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/wicare-gateway.ddns.net/privkey.pem')),
+  cert: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/wicare-gateway.ddns.net/fullchain.pem')),
+};
+
+https.createServer(httpsOptions, app).listen(PORT, () => {
+  console.log(`Server listening on https://localhost:${PORT}/`);
 });
